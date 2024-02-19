@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <h2>
+                Resultado: <span class="resultado"></span>
+            </h2>
+            <div>
+                <div>
+                    <div>
+                        <label for="">Valor 1</label>
+                        <input id="valor1" type="text">
+                    </div>
+                    <div>
+                        <label for="">Valor 2</label>
+                        <input id="valor2" type="text">
+                    </div>
+                    <div style="display: flex">
+                        <button id="btn-sumar" type="button">
+                            Sumar
+                        </button>
+                        <button id="btn-restar" type="button">
+                            Restar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let valor1Input = document.querySelector('#valor1');
+        let valor2Input = document.querySelector('#valor2');
+        let resultadoQs = document.querySelector('.resultado');
+        let btnSumar = document.querySelector('#btn-sumar');
+        let btnRestar = document.querySelector('#btn-restar');
+        
+        /* Explicación de uso textcontent
+         Diferencias con innerHTML
+innerHTML retorna el HTML como su nombre indica. Con bastante frecuencia, para leer o escribir texto en un elemento, la gente usa innerHTML. textContent debería usarse en su lugar. MDN */
+        function sumar() {
+            let valor1 = parseInt(valor1Input.value);
+            let valor2 = parseInt(valor2Input.value);
+            let resultado = valor1 + valor2;
+            resultadoQs.textContent = resultado;
+        }
+
+        function restar() {
+            let valor1 = parseInt(valor1Input.value);
+            let valor2 = parseInt(valor2Input.value);
+            let resultado = valor1 - valor2;
+            resultadoQs.textContent = resultado >= 0 ? resultado : 0;// if remplazo por op. ternario.
+        }
+
+        btnSumar.addEventListener('click', sumar);
+        btnRestar.addEventListener('click', restar);
+
+    </script>
+</body>
+
+</html>

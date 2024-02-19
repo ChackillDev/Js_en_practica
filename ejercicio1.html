@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // se asignan variables a las selecciones.
+        let errNombre = document.querySelector('.errorNombre');
+        let errAsunto = document.querySelector('.errorAsunto');
+        let errMsj = document.querySelector('.errorMensaje');
+
+        errNombre.innerHTML = "El nombre es requerido";
+        errAsunto.innerHTML = "El asunto es requerido";
+        errMsj.innerHTML = "El mensaje es requerido";
+
+        if (nombre != "") {
+            errNombre.innerHTML = ""
+        }
+        if (asunto != "") {
+            errAsunto.innerHTML = ""
+        }
+        if (mensaje != "") {
+            errMsj.innerHTML = ""
+        }
+        let resul = document.querySelector(".resultado");
+        let enviar = document.querySelector('#botton');
+        // Recoger datos del formulario
+        let form = document.querySelector("#formulario");
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let nombre = document.querySelector("#nombre").value;
+            let asunto = document.querySelector("#asunto").value;
+            let mensaje = document.querySelector("#mensaje").value;
+
+            let resultado = validar(nombre, asunto, mensaje);
+            if (resultado == true) {
+                exito();
+                actualizar();
+            };
+        });
+
+        function actualizar() {
+            setInterval(() => {
+                location.reload(true)
+            }, 1500);
+        }
+        function exito() {
+            // Mostrar un mensaje de éxito al usuario
+            alert("Mensaje enviado con éxito!");
+            resul.innerHTML = "Mensaje enviado con éxito";
+            // Limpiar los campos del formulario
+             limpiarFormulario();
+        }
+
+        function limpiarFormulario() {
+            let nombre = document.querySelector("#nombre");
+            let asunto = document.querySelector("#asunto");
+            let mensaje = document.querySelector("#mensaje");
+
+            nombre.value = "";
+            asunto.value = "";
+            mensaje.value = "";
+        }
+
+        function validar(nombre, asunto, mensaje) {
+            let pasamosLaValidacion = true;
+            let validacion = /[a-zA-Z]/gim;
+
+            if (nombre === "" || nombre === null) {
+                pasamosLaValidacion = false;
+                errNombre.innerHTML = "El nombre es requerido";
+            } else {
+                errNombre.innerHTML = "";
+            }
+
+            if (asunto === "" || asunto === null) {
+                pasamosLaValidacion = false;
+                errAsunto.innerHTML = "El asunto es requerido";
+            } else {
+                errAsunto.innerHTML = "";
+            }
+
+            if (mensaje === "" || mensaje === null) {
+                pasamosLaValidacion = false;
+                errMsj.innerHTML = "El mensaje es requerido";
+            } else {
+                errMsj.innerHTML = "";
+            }
+
+            if (validacion.test(nombre) == false) {
+                pasamosLaValidacion = false;
+            }
+            if (validacion.test(asunto) == false) {
+                pasamosLaValidacion = false;
+            }
+            if (validacion.test(mensaje) == false) {
+                pasamosLaValidacion = false;
+            }
+            return pasamosLaValidacion;
+        };
+    </script>
+
+</body>
+
+</html>
